@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Created on Fri Jun  6 14:21:30 2025
 
@@ -179,11 +180,37 @@ def main():
             st.markdown("### Assessment Results")
             st.markdown(f"**Case Number:** {case_no}")
             st.markdown(f"**Assessment Date:** {assessment_date.strftime('%d/%m/%Y')}")
+            st.markdown("")
             
+             # Display user responses
+            st.markdown("##### Patient's Risk Factors")
+            st.markdown("**General Health**")
+            st.markdown(f"Chronic/critical disease: **{chronic_disease}**")
+            st.markdown(f"Polypharmacy: **{polypharmacy}**")
+            st.markdown(f"Impaired cognitive: **{impaired_cognitive}**")
+            st.markdown(f"Impaired sensory: **{impaired_sensory}**")
+            st.markdown(f"Impaired visual: **{impaired_visual}**")
+            st.markdown(f"Impaired auditory: **{impaired_auditory}**")
+            st.markdown(f"Impaired nutrition: **{impaired_nutrition}**")
+            st.markdown("")
+     
+            st.markdown("**Mobility**")
+            st.markdown(f"History of falls: **{history_falls}**")
+            st.markdown(f"Impaired mobility: **{impaired_mobility}**")
+            st.markdown(f"ADL-dependent: **{adl_dependent}**")
+            st.markdown(f"Mechanical trauma: **{mechanical_trauma}**")
+            st.markdown("")
+     
+            st.markdown("**Skin**")
+            st.markdown(f"Extremes of age (>= 85 years old): **{extreme_age}**")
+            st.markdown(f"Fragile skin: **{fragile_skin}**")
+            st.markdown(f"Previous skin tear: **{previous_skin_tear}**")
+            st.markdown("")
+       
             # Display risk category with appropriate styling
             if risk_category == "High Risk":
                 st.markdown(f'<p class="risk-high">Risk Category: {risk_category}</p>', unsafe_allow_html=True)
-                st.markdown("")
+                st.markdown("---")  # Add a divider line
                 st.markdown("""
                 ##### Objective data:
                 Patient is at high risk for skin tear
@@ -215,7 +242,7 @@ def main():
                 """)
             elif risk_category == "At Risk":
                 st.markdown(f'<p class="risk-medium">Risk Category: {risk_category}</p>', unsafe_allow_html=True)
-                st.markdown("")
+                st.markdown("---")  # Add a divider line
                 st.markdown("""
                 ##### Objective data:
                 Patient is at risk for skin tear
@@ -247,7 +274,7 @@ def main():
                 """)
             else:
                 st.markdown(f'<p class="risk-low">Risk Category: {risk_category}</p>', unsafe_allow_html=True)
-                st.markdown("")
+                st.markdown("---")  # Add a divider line
                 st.markdown("""
                 ###### Objective data:
                 Patient has no risk for skin tear  
@@ -265,4 +292,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
