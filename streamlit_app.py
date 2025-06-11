@@ -105,33 +105,33 @@ def main():
     col1, col2 = st.columns(2)
     with col1:
         chronic_disease = st.radio("Chronic/critical disease", options=['Yes', 'No'], index=None, horizontal=True)
-        impaired_cognitive = st.radio("Impaired cognitive", options=['Yes', 'No'], index=None)
-        impaired_visual = st.radio("Impaired visual", options=['Yes', 'No'], index=None)
-        impaired_nutrition = st.radio("Impaired nutrition", options=['Yes', 'No'], index=None)
+        impaired_cognitive = st.radio("Impaired cognitive", options=['Yes', 'No'], index=None, horizontal=True)
+        impaired_visual = st.radio("Impaired visual", options=['Yes', 'No'], index=None, horizontal=True)
+        impaired_nutrition = st.radio("Impaired nutrition", options=['Yes', 'No'], index=None, horizontal=True)
     with col2:
-        polypharmacy = st.radio("Polypharmacy", options=['Yes', 'No'], index=None)
-        impaired_sensory = st.radio("Impaired sensory", options=['Yes', 'No'], index=None)
-        impaired_auditory = st.radio("Impaired auditory", options=['Yes', 'No'], index=None)
-
+        polypharmacy = st.radio("Polypharmacy", options=['Yes', 'No'], index=None, horizontal=True)
+        impaired_sensory = st.radio("Impaired sensory", options=['Yes', 'No'], index=None, horizontal=True)
+        impaired_auditory = st.radio("Impaired auditory", options=['Yes', 'No'], index=None, horizontal=True)
 
     # Mobility
     st.markdown("##### Mobility")
     col1, col2 = st.columns(2)
     with col1:
-        history_falls = st.radio("History of falls", options=['Yes', 'No'], index=None)
-        adl_dependent = st.radio("ADL-dependent", options=['Yes', 'No'], index=None)
+        history_falls = st.radio("History of falls", options=['Yes', 'No'], index=None, horizontal=True)
+        adl_dependent = st.radio("ADL-dependent", options=['Yes', 'No'], index=None, horizontal=True)
     with col2:
-        impaired_mobility = st.radio("Impaired mobility", options=['Yes', 'No'], index=None)
-        mechanical_trauma = st.radio("Mechanical trauma", options=['Yes', 'No'], index=None)
+        impaired_mobility = st.radio("Impaired mobility", options=['Yes', 'No'], index=None, horizontal=True)
+        mechanical_trauma = st.radio("Mechanical trauma", options=['Yes', 'No'], index=None, horizontal=True)
 
     # Skin Assessment
     st.markdown("##### Skin")
     col1, col2 = st.columns(2)
     with col1:
-        extreme_age = st.radio("Extremes of age (>= 85 years old)", options=['Yes', 'No'], index=None)
-        previous_skin_tear = st.radio("Previous skin tear", options=['Yes', 'No'], index=None)
+        extreme_age = st.radio("Extremes of age (>= 85 years old)", options=['Yes', 'No'], index=None, horizontal=True)
+        previous_skin_tear = st.radio("Previous skin tear", options=['Yes', 'No'], index=None, horizontal=True)
     with col2:
-        fragile_skin = st.radio("Fragile skin", options=['Yes', 'No'], index=None)
+        fragile_skin = st.radio("Fragile skin", options=['Yes', 'No'], index=None, horizontal=True)
+
 
     # Submit button
     if st.button("Submit Assessment"):
