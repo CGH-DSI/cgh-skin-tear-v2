@@ -9,6 +9,14 @@ import streamlit as st
 import pandas as pd
 import datetime as datetime
 
+def radio_row(label, key):
+    col1, col2 = st.columns([1.5, 3])
+    with col1:
+        st.write(label)
+    with col2:
+        return st.radio("", options=['Yes', 'No'], index=None, horizontal=True, key=key)
+
+
 # Set page configuration
 st.set_page_config(
     page_title="Skin Tear Risk Assessment",
@@ -96,7 +104,7 @@ def main():
     st.markdown("##### General Health")
     col1, col2 = st.columns(2)
     with col1:
-        chronic_disease = st.radio("Chronic/critical disease", options=['Yes', 'No'], index=None)
+        chronic_disease = st.radio("Chronic/critical disease", options=['Yes', 'No'], index=None, horizontal=True)
         impaired_cognitive = st.radio("Impaired cognitive", options=['Yes', 'No'], index=None)
         impaired_visual = st.radio("Impaired visual", options=['Yes', 'No'], index=None)
         impaired_nutrition = st.radio("Impaired nutrition", options=['Yes', 'No'], index=None)
@@ -104,6 +112,7 @@ def main():
         polypharmacy = st.radio("Polypharmacy", options=['Yes', 'No'], index=None)
         impaired_sensory = st.radio("Impaired sensory", options=['Yes', 'No'], index=None)
         impaired_auditory = st.radio("Impaired auditory", options=['Yes', 'No'], index=None)
+
 
     # Mobility
     st.markdown("##### Mobility")
