@@ -1,29 +1,3 @@
-Conversation opened. 1 read message.
-
-Skip to content
-Using Gmail with screen readers
-4 of 1,157
-Streamlit App
-Inbox
-
-Bernard Koh Tiang Guan (SingHealth - CGH)
-Attachments
-Tue 10 Jun, 07:58 (1 day ago)
-to me
-
-test
-
-'
-PATIENTS. AT THE HEART OF ALL WE DO.
-
-
-
-This email may contain privileged/classified information and is intended solely for the use of the individual to whom it is addressed. If you are not the intended recipient, please notify the sender immediately and delete this email. You are not allowed to disclose, distribute or copy the content and any attachment of this email.
-
-'.
-One attachment
-  • Scanned by Gmail
-# -*- coding: utf-8 -*-
 """
 Created on Fri Jun  6 14:21:30 2025
 
@@ -291,5 +265,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-skin_tear_assessment..txt
-Displaying skin_tear_assessment..txt.
+
