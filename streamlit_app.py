@@ -7,7 +7,11 @@ Created on Fri Jun  6 14:21:30 2025
 
 import streamlit as st
 import pandas as pd
-import datetime as datetime
+from datetime import datetime
+import json
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 def radio_row(label, key):
     col1, col2 = st.columns([1.5, 3])
@@ -16,6 +20,53 @@ def radio_row(label, key):
     with col2:
         return st.radio("", options=['Yes', 'No'], index=None, horizontal=True, key=key)
 
+# Add this function to handle email sending
+def send_assessment_email(assessment_data):
+    try:
+        # Email configuration - try secrets first, then environment variables
+        sender_email = st.secrets["GMAIL_EMAIL"]
+        sender_password = st.secrets["GMAIL_APP_PASSWORD"]
+        receiver_email = st.secrets["RECIPIENT_EMAIL"]
+        
+        if not sender_email or not sender_password:
+            st.error("Email credentials not configured. Please set up your secrets.toml file.")
+            return False
+        
+        # Create message
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = receiver_email
+        msg['Subject'] = f"Skin Tear Assessment - Case {assessment_data['case_no']}"
+        
+        # Convert assessment data to formatted JSON string
+        json_content = json.dumps(assessment_data, indent=2)
+        
+        # Create email body
+        body = f"""New Skin Tear Assessment Submission
+
+                Assessment Details:
+                {json_content}
+
+                ---
+                This email was automatically generated from the Skin Tear Risk Assessment application.
+                Submission Time: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
+                """
+        
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Create server connection
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        
+        # Send email
+        server.send_message(msg)
+        server.quit()
+        return True
+        
+    except Exception as e:
+        st.error(f"Failed to send email: {str(e)}")
+        return False
 
 # Set page configuration
 st.set_page_config(
@@ -179,12 +230,48 @@ def main():
             #     [st.session_state.form_data, new_data],
             #     ignore_index=True
             # )
+
+            # Create assessment data dictionary
+            assessment_data = {
+                "submission_timestamp": datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+                "case_no": case_no,
+                "assessment_date": assessment_date.strftime('%d/%m/%Y'),
+                "general_health": {
+                    "chronic_disease": chronic_disease,
+                    "polypharmacy": polypharmacy,
+                    "impaired_cognitive": impaired_cognitive,
+                    "impaired_sensory": impaired_sensory,
+                    "impaired_visual": impaired_visual,
+                    "impaired_auditory": impaired_auditory,
+                    "impaired_nutrition": impaired_nutrition
+                },
+                "mobility": {
+                    "history_falls": history_falls,
+                    "adl_dependent": adl_dependent,
+                    "impaired_mobility": impaired_mobility,
+                    "mechanical_trauma": mechanical_trauma
+                },
+                "skin": {
+                    "extreme_age": extreme_age,
+                    "previous_skin_tear": previous_skin_tear,
+                    "fragile_skin": fragile_skin
+                },
+                "assessment_results": {
+                    "risk_category": risk_category,
+                }
+            }
             
+            # Send email
+            if send_assessment_email(assessment_data):
+                st.success("Assessment submitted and email sent successfully!")
+            else:
+                st.warning("Assessment completed but email notification failed.")
+
             # Set form_submitted to True
             st.session_state.form_submitted = True
 
             # Show results
-            st.success("Assessment submitted successfully!")
+            # st.success("Assessment submitted successfully!")
             
             st.markdown("### Assessment Results")
             st.markdown(f"**Case Number:** {case_no}")
