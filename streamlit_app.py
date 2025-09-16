@@ -134,7 +134,7 @@ def main():
 
 
     # Submit button
-    if st.button("Submit Assessment"):
+    if st.button(f"Submit Assessment to {st.secrets["GMAIL_EMAIL"]}"):
         if not case_no:
             st.error("Please enter a Case Number")
         elif None in [chronic_disease, polypharmacy, impaired_cognitive, impaired_sensory,
