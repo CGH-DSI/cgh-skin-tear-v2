@@ -42,7 +42,7 @@ def send_assessment_email(assessment_data):
         json_content = json.dumps(assessment_data, indent=2)
         
         # Create email body
-        body = f"""New Skin Tear Assessment Submission
+        # body = f"""New Skin Tear Assessment Submission
 
                 Assessment Details:
                 {json_content}
@@ -51,6 +51,8 @@ def send_assessment_email(assessment_data):
                 This email was automatically generated from the Skin Tear Risk Assessment application.
                 Submission Time: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
                 """
+        # Keep only the json and reomve the other wordings
+        body = json_content
         
         msg.attach(MIMEText(body, 'plain'))
         
@@ -236,42 +238,36 @@ def main():
                 "submission_timestamp": datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
                 "case_no": case_no,
                 "assessment_date": assessment_date.strftime('%d/%m/%Y'),
-                "general_health": {
-                    "chronic_disease": chronic_disease,
-                    "polypharmacy": polypharmacy,
-                    "impaired_cognitive": impaired_cognitive,
-                    "impaired_sensory": impaired_sensory,
-                    "impaired_visual": impaired_visual,
-                    "impaired_auditory": impaired_auditory,
-                    "impaired_nutrition": impaired_nutrition
-                },
-                "mobility": {
-                    "history_falls": history_falls,
-                    "adl_dependent": adl_dependent,
-                    "impaired_mobility": impaired_mobility,
-                    "mechanical_trauma": mechanical_trauma
-                },
-                "skin": {
-                    "extreme_age": extreme_age,
-                    "previous_skin_tear": previous_skin_tear,
-                    "fragile_skin": fragile_skin
-                },
-                "assessment_results": {
-                    "risk_category": risk_category,
-                }
+                "chronic_disease": chronic_disease,
+                "polypharmacy": polypharmacy,
+                "impaired_cognitive": impaired_cognitive,
+                "impaired_sensory": impaired_sensory,
+                "impaired_visual": impaired_visual,
+                "impaired_auditory": impaired_auditory,
+                "impaired_nutrition": impaired_nutrition,
+                "history_falls": history_falls,
+                "adl_dependent": adl_dependent,
+                "impaired_mobility": impaired_mobility,
+                "mechanical_trauma": mechanical_trauma,
+                "extreme_age": extreme_age,
+                "previous_skin_tear": previous_skin_tear,
+                "fragile_skin": fragile_skin,
+                "risk_category": risk_category
             }
             
             # Send email
-            if send_assessment_email(assessment_data):
-                st.success("Assessment submitted and email sent successfully!")
-            else:
-                st.warning("Assessment completed but email notification failed.")
-
+            send_assessment_email(assessment_data)
+            
+            # if send_assessment_email(assessment_data):
+            #     st.success("Assessment submitted and email sent successfully!")
+            # else:
+            #    st.warning("Assessment completed but email notification failed.")
+                
             # Set form_submitted to True
             st.session_state.form_submitted = True
 
             # Show results
-            # st.success("Assessment submitted successfully!")
+            st.success("Assessment submitted successfully!")
             
             st.markdown("### Assessment Results")
             st.markdown(f"**Case Number:** {case_no}")
