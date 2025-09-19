@@ -8,10 +8,14 @@ Created on Fri Jun  6 14:21:30 2025
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import pytz
 import json
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+
+# Set Singapore timezone
+singapore_tz = pytz.timezone('Asia/Singapore')
 
 def radio_row(label, key):
     col1, col2 = st.columns([1.5, 3])
@@ -49,7 +53,7 @@ def send_assessment_email(assessment_data):
 
         #        ---
         #        This email was automatically generated from the Skin Tear Risk Assessment application.
-        #        Submission Time: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
+        #        Submission Time: {datetime.now(singapore_tz).strftime('%d/%m/%Y %H:%M:%S')}
         #        """
        
         # Keep only the json and reomve the other wordings
@@ -236,7 +240,7 @@ def main():
 
             # Create assessment data dictionary
             assessment_data = {
-                "submission_timestamp": datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+                "submission_timestamp": datetime.now(singapore_tz).strftime('%d/%m/%Y %H:%M:%S'),
                 "case_no": case_no,
                 "assessment_date": assessment_date.strftime('%d/%m/%Y'),
                 "chronic_disease": chronic_disease,
