@@ -44,13 +44,14 @@ def send_assessment_email(assessment_data):
         # Create email body
         # body = f"""New Skin Tear Assessment Submission
 
-                Assessment Details:
-                {json_content}
+        #        Assessment Details:
+        #        {json_content}
 
-                ---
-                This email was automatically generated from the Skin Tear Risk Assessment application.
-                Submission Time: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
-                """
+        #        ---
+        #        This email was automatically generated from the Skin Tear Risk Assessment application.
+        #        Submission Time: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
+        #        """
+       
         # Keep only the json and reomve the other wordings
         body = json_content
         
